@@ -1,18 +1,18 @@
 /* eslint-disable no-unused-vars */
 const Service = require('./Service');
-const { Project } = require('../models/Project');
+const { Task } = require('../models/Task');
 
 /**
 * Creates the data
 *
-* project Project data to be created
-* returns project
+* task Task data to be created
+* returns task
 * */
-const createproject = ({ project }) => new Promise(
+const createtask = ({ task }) => new Promise(
   async (resolve, reject) => {
     try {
       let query = {};
-      query = await new Project(project).save();
+      query = await new Task(task).save();
       resolve(Service.successResponse({ query,}));
     } catch (e) {
       reject(Service.rejectResponse(
@@ -25,14 +25,14 @@ const createproject = ({ project }) => new Promise(
 /**
 * Delete the element
 *
-* projectId String the Id parameter
+* taskId String the Id parameter
 * no response value expected for this operation
 * */
-const deleteproject = ({ projectId }) => new Promise(
+const deletetask = ({ taskId }) => new Promise(
   async (resolve, reject) => {
     try {
       let query = {};
-      query = await Project.findOneAndDelete({ _id:projectId }).exec();
+      query = await Task.findOneAndDelete({ _id:taskId }).exec();
       resolve(Service.successResponse({ query,}));
     } catch (e) {
       reject(Service.rejectResponse(
@@ -47,11 +47,11 @@ const deleteproject = ({ projectId }) => new Promise(
 *
 * returns Object
 * */
-const getAllproject = () => new Promise(
+const getAlltask = () => new Promise(
   async (resolve, reject) => {
     try {
       let query = {}
-      query = await Project.find().populate(['pWorkpackage']).exec();
+      query = await Task.find().exec();
       resolve(Service.successResponse(query));
     } catch (e) {
       reject(Service.rejectResponse(
@@ -64,15 +64,15 @@ const getAllproject = () => new Promise(
 /**
 * Get the element
 *
-* projectId String the Id parameter
-* returns project
+* taskId String the Id parameter
+* returns task
 * */
-const getproject = ({ projectId }) => new Promise(
+const gettask = ({ taskId }) => new Promise(
   async (resolve, reject) => {
     try {
       let query = {};
-      query = await Project.findById(projectId)
-      .populate(['pWorkpackage']).exec();
+      query = await Task.findById(taskId)
+      .exec();
       resolve(Service.successResponse({ query,}));
     } catch (e) {
       reject(Service.rejectResponse(
@@ -85,15 +85,15 @@ const getproject = ({ projectId }) => new Promise(
 /**
 * Updates the element
 *
-* projectId String the Id parameter
-* project Project data to be updated (optional)
-* returns project
+* taskId String the Id parameter
+* task Task data to be updated (optional)
+* returns task
 * */
-const updateproject = ({ projectId, project }) => new Promise(
+const updatetask = ({ taskId, task }) => new Promise(
   async (resolve, reject) => {
     try {
       let query = {};
-      query = await Project.findOneAndUpdate({ _id:projectId },project).exec();
+      query = await Task.findOneAndUpdate({ _id:taskId },task).exec();
       resolve(Service.successResponse({ query,}));
     } catch (e) {
       reject(Service.rejectResponse(
@@ -105,9 +105,9 @@ const updateproject = ({ projectId, project }) => new Promise(
 );
 
 module.exports = {
-  createproject,
-  deleteproject,
-  getAllproject,
-  getproject,
-  updateproject,
+  createtask,
+  deletetask,
+  getAlltask,
+  gettask,
+  updatetask,
 };
